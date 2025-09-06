@@ -93,8 +93,6 @@ This exercise is part of Module 14: Automation with Python. Module 14 focuses on
     ```
     <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_14_Automation_with_Python_4/blob/main/Img/8.PNG" width=800 />
 
-9. Snapshots on AWS
-    <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_14_Automation_with_Python_4/blob/main/Img/snapshots%20on%20aws.PNG" width=800/>
    
 ## Cleaning up Snapshots
 1. Import the boto3 and operator module.
