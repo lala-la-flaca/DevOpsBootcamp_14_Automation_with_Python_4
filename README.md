@@ -124,7 +124,7 @@ This exercise is part of Module 14: Automation with Python. Module 14 focuses on
       snapshots = ""
 
    ```
-   <img src="" width=800 />
+   <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_14_Automation_with_Python_4/blob/main/Img/c3.PNG" width=800 />
     
 4. Check available snapshots for each volume.
     ```bash
@@ -146,7 +146,7 @@ This exercise is part of Module 14: Automation with Python. Module 14 focuses on
           print(snapshots)
 
    ```
-    <img src="" width=800 />
+    <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_14_Automation_with_Python_4/blob/main/Img/c4.PNG" width=800 />
    
 5. Sort the snapshots.
     ```bash
