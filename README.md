@@ -272,4 +272,4 @@ This exercise is part of Module 14: Automation with Python. Module 14 focuses on
     
 8. New Volume:
 
-   <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_14_Automation_with_Python_4/blob/main/Img/new%20volume%20avialable.PNG" width=800/>
+   <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_14_Automation_with_Python_4/blob/main/Img/2%20volumes%20avialble%20in%20pprod.png" width=800/>
