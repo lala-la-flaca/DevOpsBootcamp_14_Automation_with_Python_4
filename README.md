@@ -94,26 +94,174 @@ This exercise is part of Module 14: Automation with Python. Module 14 focuses on
    
 ## Cleaning up Snapshots
 1. Import the boto3 module.
+   ```bash
+   import boto3
+   ```
    <img src="" width=800 />
      
 2. Import the operator module.
+   ```bash
+   from operator import itemgetter
+   ```
    <img src="" width=800 />
     
 3. Initialize the EC2 client.
+   ```bash
+    #Getting EC2 Client
+    ec2_client = boto3.client('ec2', region_name="us-east-1")
+   ```
    <img src="" width=800 />
     
 4. Filter volumes by tag.
+   ```bash
+      # Filtering desired Volumes based on tags
+      available_volumes = ec2_client.describe_volumes(
+          Filters=[
+              {
+                  'Name': 'tag:Name',
+                  'Values': ['prod']
+              }
+          ]
+      )
+      
+      volumes = available_volumes["Volumes"]
+      print(f"Available volumes: {available_volumes}")
+      snapshots = ""
+
+   ```
    <img src="" width=800 />
     
 5. Check available snapshots for each volume.
+    ```bash
+      #Getting available Snapshots for desired volumeId
+      available_snapshots = ec2_client.describe_snapshots(
+          OwnerIds=["self"],
+          Filters=[
+              {
+                  'Name': 'volume-id',
+                  'Values': [volume_id]
+              }
+          ]
+      )
+      snapshots =  available_snapshots['Snapshots']
+      print("Snapshots available:")
+      print(snapshots)
+
+   ```
     <img src="" width=800 />
    
 6. Sort the snapshots.
+    ```bash
+        #Sorting the list by the StartTime item by default is ascending
+        #To change behavior use the reverse= True
+        sorted_snapshots_by_date = sorted(snapshots, key=itemgetter('StartTime'), reverse=True)
+        print(f"Sorted: {sorted_snapshots_by_date}")
+     ```
     <img src="" width=800 />
       
 7. Delete the old snapshots.
-    <img src="" width=800 />
+   ```bash
+       for snapshot in sorted_snapshots_by_date[2:]:
+        print("Deleting Snapshots")
+        snapshot_id = snapshot["SnapshotId"]
+        response = ec2_client.delete_snapshot(
+            SnapshotId=snapshot_id
+        )
+        print("This is the response:")
+        print(response)
+   ```
+  <img src="" width=800 />
 
 ## Restore Snapshot
-
+1. Import boto3 and operator modules.
+   ```bash
+     import boto3
+    from operator import itemgetter
+   ```
+    <img src="" width=800 />
+    
+2. Initialize EC2 client and resource.
+   ```bash
+   ec2_client = boto3.client('ec2', region_name="us-east-1")
+   ec2_resource = boto3.resource('ec2',region_name="us-east-1")
+   ```
+    <img src="" width=800 />
+    
+3. Hardcode instance ID.
+   ```bash
+   instance_id = "i-01bbd5b3855bba8b1"
+   ```
+    <img src="" width=800 />
+    
+4. Get Volumes attached to the Instance ID.
+   ```bash
+     #Getting Volumes Attached to instance iD
+      available_volumes = ec2_client.describe_volumes(
+          Filters=[
+              {
+                  'Name': 'attachment.instance-id',
+                  'Values': [instance_id]
+              }
+          ]
+      )
+      
+      instance_volume = available_volumes["Volumes"][0]
+      instance_volume_id = instance_volume["VolumeId"]
+      print(instance_volume)
+   ```
+    <img src="" width=800 />
+    
+5. Verify Available snapshorts for Volume.
+    ```bash
+          available_snapshots = ec2_client.describe_snapshots(
+              OwnerIds=["self"],
+              Filters=[
+                  {
+                      'Name': 'volume-id',
+                      'Values': [instance_volume_id]
+                  }
+              ]
+          )
+      snapshots =  available_snapshots['Snapshots']
+   ```
+   <img src="" width=800 />
+   
+6. Sort snapshorts.
+    ```bash
+      sorted_snapshots_by_date = sorted(snapshots, key=itemgetter('StartTime'), reverse=True)
+      latest_snapshot = sorted_snapshots_by_date[0]
+      latest_snapshot_id = latest_snapshot['SnapshotId']
+     ```
+    <img src="" width=800 />
+7. Create a new volume to apply the latest snapshot.
+    ```bash
+    #Creating a New Volume
+      new_volume = ec2_client.create_volume(
+          SnapshotId = latest_snapshot_id,
+          AvailabilityZone = "us-east-1a",
+          TagSpecifications=[
+              {
+                  'ResourceType':'volume',
+                  'Tags':[
+                          {
+                              'Key':'Name',
+                              'Value':'prod'
+                          }
+                  ]
+              }
+          ]
+      )
+      
+      while True:
+         vol =  ec2_resource.Volume(new_volume['VolumeId'])
+         print(vol.state)
+         if vol.state == 'available':
+             ec2_resource.Instance(instance_id).attach_volume(
+                 VolumeId=new_volume['VolumeId'],
+                 Device='/dev/xvdb'
+             )
+             break
+    ```
+   <img src="" width=800 />
+   
     
