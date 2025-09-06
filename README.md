@@ -26,8 +26,8 @@ This exercise is part of Module 14: Automation with Python. Module 14 focuses on
 
 # ⚙️ Project Configuration
    
-## Adding Tags to EC2 Instances
-1. Deploy the EKS infrastructure using Terraform from the demo in the Terraform section.
+## Creating Snapshots
+1. Deploy infrastructure with Terraform
    
 2. Import boto3 module.
    ```bash
@@ -35,6 +35,60 @@ This exercise is part of Module 14: Automation with Python. Module 14 focuses on
    ```
    <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_14_Automation_with_Python_2/blob/main/Img/2.PNG" width=800 />
    
-
+3. Import Schedule module
+   ```bash
+   import schedule
+   ``
+    <img src="" width=800 />
+   
+4. Initialize client
+   ```bash
+    ec2_client = boto3.client('ec2', region_name="us-east-1")
+   ```
+    <img src="" width=800 />
+   
+6. Filter Volumes based on tags
+   ```bash
+      #Filtering desired Volumes based on tags
+      available_volumes = ec2_client.describe_volumes(
+          Filters = [
+              {
+                  'Name': 'tag:Name',
+                  'Values': ['prod']
+              }
+          ]
+      )
+   ```
+    <img src="" width=800 />
+   
+7. Obtain available volumes
+   ```bash
+     #Available Volumes
+    volumes = available_volumes["Volumes"]
+   ```
+    <img src="" width=800 />
+   
+8. Create Snapshots for the volumes
+   ```bash
+     #Creating Snapshot
+      for volume in volumes:
+          try:
+              volume_id = volume["VolumeId"]
+              snapshot_response = ec2_client.create_snapshot(
+                  VolumeId=volume_id
+              )
+              print(snapshot_response)
+          except:
+              print(" shuttingDown")
+  
+   ```
+    <img src="" width=800 />   
+9. Schedule the task
+    ```bash
+          schedule.every(240).seconds.do(ebs_snapshot)
       
+      while True:
+          schedule.run_pending()
+    ```
+    <img src="" width=800 />       
    
