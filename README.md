@@ -13,8 +13,8 @@ This exercise is part of Module 14: Automation with Python. Module 14 focuses on
 * Terraform
 
 # 🎯 Features
-✅ Automates EC2 volume backups
-🗑️ Cleans up old snapshots
+✅ Automates EC2 volume backups.
+🗑️ Cleans up old snapshots.
 🔄 Restores volumes from snapshots
 
 # Prerequisites
