@@ -91,7 +91,10 @@ This exercise is part of Module 14: Automation with Python. Module 14 focuses on
       while True:
           schedule.run_pending()
     ```
-    <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_14_Automation_with_Python_4/blob/main/Img/8.PNG" width=800 />       
+    <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_14_Automation_with_Python_4/blob/main/Img/8.PNG" width=800 />
+
+9. Snapshots on AWS
+    <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_14_Automation_with_Python_4/blob/main/Img/snapshots%20on%20aws.PNG" width=800/>
    
 ## Cleaning up Snapshots
 1. Import the boto3 and operator module.
@@ -170,6 +173,8 @@ This exercise is part of Module 14: Automation with Python. Module 14 focuses on
    ```
   <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_14_Automation_with_Python_4/blob/main/Img/c6.PNG" width=800 />
 
+ 
+  
 ## Restore Snapshot
 1. Import boto3 and operator modules.
    ```bash
@@ -265,3 +270,6 @@ This exercise is part of Module 14: Automation with Python. Module 14 focuses on
    <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_14_Automation_with_Python_4/blob/main/Img/r8.PNG" width=800 />
    
     
+8. New Volume:
+
+   <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_14_Automation_with_Python_4/blob/main/Img/new%20volume%20avialable.PNG" width=800/>
