@@ -39,15 +39,15 @@ This exercise is part of Module 14: Automation with Python. Module 14 focuses on
    ```bash
    import schedule
    ```
-   <img src="" width=800 />
+   <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_14_Automation_with_Python_4/blob/main/Img/3.PNG" width=800 />
    
 4. Initialize client
    ```bash
     ec2_client = boto3.client('ec2', region_name="us-east-1")
    ```
-    <img src="" width=800 />
+    <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_14_Automation_with_Python_4/blob/main/Img/4.PNG" width=800 />
    
-6. Filter Volumes based on tags
+5. Filter Volumes based on tags
    ```bash
       #Filtering desired Volumes based on tags
       available_volumes = ec2_client.describe_volumes(
@@ -59,16 +59,16 @@ This exercise is part of Module 14: Automation with Python. Module 14 focuses on
           ]
       )
    ```
-    <img src="" width=800 />
+    <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_14_Automation_with_Python_4/blob/main/Img/5.PNG" width=800 />
    
-7. Obtain available volumes
+6. Obtain available volumes
    ```bash
      #Available Volumes
     volumes = available_volumes["Volumes"]
    ```
-    <img src="" width=800 />
+    <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_14_Automation_with_Python_4/blob/main/Img/6.PNG" width=800 />
    
-8. Create Snapshots for the volumes
+7. Create Snapshots for the volumes
    ```bash
      #Creating Snapshot
       for volume in volumes:
@@ -82,37 +82,33 @@ This exercise is part of Module 14: Automation with Python. Module 14 focuses on
               print(" shuttingDown")
   
    ```
-    <img src="" width=800 />   
-9. Schedule the task
+    <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_14_Automation_with_Python_4/blob/main/Img/7.PNG" width=800 />
+   
+8. Schedule the task
     ```bash
           schedule.every(240).seconds.do(ebs_snapshot)
       
       while True:
           schedule.run_pending()
     ```
-    <img src="" width=800 />       
+    <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_14_Automation_with_Python_4/blob/main/Img/8.PNG" width=800 />       
    
 ## Cleaning up Snapshots
-1. Import the boto3 module.
+1. Import the boto3 and operator module.
    ```bash
    import boto3
-   ```
-   <img src="" width=800 />
-     
-2. Import the operator module.
-   ```bash
    from operator import itemgetter
    ```
-   <img src="" width=800 />
+   <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_14_Automation_with_Python_4/blob/main/Img/c1.PNG" width=800 />
     
-3. Initialize the EC2 client.
+2. Initialize the EC2 client.
    ```bash
     #Getting EC2 Client
     ec2_client = boto3.client('ec2', region_name="us-east-1")
    ```
-   <img src="" width=800 />
+   <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_14_Automation_with_Python_4/blob/main/Img/c_2.PNG" width=800 />
     
-4. Filter volumes by tag.
+3. Filter volumes by tag.
    ```bash
       # Filtering desired Volumes based on tags
       available_volumes = ec2_client.describe_volumes(
@@ -129,9 +125,9 @@ This exercise is part of Module 14: Automation with Python. Module 14 focuses on
       snapshots = ""
 
    ```
-   <img src="" width=800 />
+   <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_14_Automation_with_Python_4/blob/main/Img/c3.PNG" width=800 />
     
-5. Check available snapshots for each volume.
+4. Check available snapshots for each volume.
     ```bash
       #Getting available Snapshots for desired volumeId
       available_snapshots = ec2_client.describe_snapshots(
@@ -148,18 +144,18 @@ This exercise is part of Module 14: Automation with Python. Module 14 focuses on
       print(snapshots)
 
    ```
-    <img src="" width=800 />
+    <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_14_Automation_with_Python_4/blob/main/Img/c4.PNG" width=800 />
    
-6. Sort the snapshots.
+5. Sort the snapshots.
     ```bash
         #Sorting the list by the StartTime item by default is ascending
-        #To change behavior use the reverse= True
+        #To change behavior, use the reverse= True
         sorted_snapshots_by_date = sorted(snapshots, key=itemgetter('StartTime'), reverse=True)
         print(f"Sorted: {sorted_snapshots_by_date}")
      ```
-    <img src="" width=800 />
+    <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_14_Automation_with_Python_4/blob/main/Img/c5.PNG" width=800 />
       
-7. Delete the old snapshots.
+6. Delete the old snapshots.
    ```bash
        for snapshot in sorted_snapshots_by_date[2:]:
         print("Deleting Snapshots")
@@ -170,28 +166,28 @@ This exercise is part of Module 14: Automation with Python. Module 14 focuses on
         print("This is the response:")
         print(response)
    ```
-  <img src="" width=800 />
+  <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_14_Automation_with_Python_4/blob/main/Img/c6.PNG" width=800 />
 
 ## Restore Snapshot
 1. Import boto3 and operator modules.
    ```bash
-     import boto3
+    import boto3
     from operator import itemgetter
    ```
-    <img src="" width=800 />
+    <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_14_Automation_with_Python_4/blob/main/Img/r1.PNG" width=800 />
     
 2. Initialize EC2 client and resource.
    ```bash
    ec2_client = boto3.client('ec2', region_name="us-east-1")
    ec2_resource = boto3.resource('ec2',region_name="us-east-1")
    ```
-    <img src="" width=800 />
+    <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_14_Automation_with_Python_4/blob/main/Img/r2.PNG" width=800 />
     
 3. Hardcode instance ID.
    ```bash
    instance_id = "i-01bbd5b3855bba8b1"
    ```
-    <img src="" width=800 />
+    <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_14_Automation_with_Python_4/blob/main/Img/r3.PNG" width=800 />
     
 4. Get Volumes attached to the Instance ID.
    ```bash
@@ -209,7 +205,7 @@ This exercise is part of Module 14: Automation with Python. Module 14 focuses on
       instance_volume_id = instance_volume["VolumeId"]
       print(instance_volume)
    ```
-    <img src="" width=800 />
+    <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_14_Automation_with_Python_4/blob/main/Img/r4.PNG" width=800 />
     
 5. Verify Available snapshorts for Volume.
     ```bash
@@ -224,7 +220,7 @@ This exercise is part of Module 14: Automation with Python. Module 14 focuses on
           )
       snapshots =  available_snapshots['Snapshots']
    ```
-   <img src="" width=800 />
+   <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_14_Automation_with_Python_4/blob/main/Img/r5.PNG" width=800 />
    
 6. Sort snapshorts.
     ```bash
@@ -232,7 +228,8 @@ This exercise is part of Module 14: Automation with Python. Module 14 focuses on
       latest_snapshot = sorted_snapshots_by_date[0]
       latest_snapshot_id = latest_snapshot['SnapshotId']
      ```
-    <img src="" width=800 />
+    <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_14_Automation_with_Python_4/blob/main/Img/r6.PNG" width=800 />
+    
 7. Create a new volume to apply the latest snapshot.
     ```bash
     #Creating a New Volume
@@ -262,6 +259,7 @@ This exercise is part of Module 14: Automation with Python. Module 14 focuses on
              )
              break
     ```
-   <img src="" width=800 />
+   <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_14_Automation_with_Python_4/blob/main/Img/r7.PNG" width=800 />
+   <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_14_Automation_with_Python_4/blob/main/Img/r8.PNG" width=800 />
    
     
