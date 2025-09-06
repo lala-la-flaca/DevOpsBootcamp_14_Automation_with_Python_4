@@ -92,4 +92,28 @@ This exercise is part of Module 14: Automation with Python. Module 14 focuses on
     ```
     <img src="" width=800 />       
    
-## Clelaning up Snapshots
+## Cleaning up Snapshots
+1. Import the boto3 module.
+   <img src="" width=800 />
+     
+2. Import the operator module.
+   <img src="" width=800 />
+    
+3. Initialize the EC2 client.
+   <img src="" width=800 />
+    
+4. Filter volumes by tag.
+   <img src="" width=800 />
+    
+5. Check available snapshots for each volume.
+    <img src="" width=800 />
+   
+6. Sort the snapshots.
+    <img src="" width=800 />
+      
+7. Delete the old snapshots.
+    <img src="" width=800 />
+
+## Restore Snapshot
+
+    
