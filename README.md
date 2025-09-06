@@ -119,32 +119,34 @@ This exercise is part of Module 14: Automation with Python. Module 14 focuses on
               }
           ]
       )
-      
       volumes = available_volumes["Volumes"]
       print(f"Available volumes: {available_volumes}")
       snapshots = ""
 
    ```
-   <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_14_Automation_with_Python_4/blob/main/Img/c3.PNG" width=800 />
+   <img src="" width=800 />
     
 4. Check available snapshots for each volume.
     ```bash
-      #Getting available Snapshots for desired volumeId
-      available_snapshots = ec2_client.describe_snapshots(
-          OwnerIds=["self"],
-          Filters=[
-              {
-                  'Name': 'volume-id',
-                  'Values': [volume_id]
-              }
-          ]
-      )
-      snapshots =  available_snapshots['Snapshots']
-      print("Snapshots available:")
-      print(snapshots)
+          for volume in volumes:
+          volume_id = volume["VolumeId"]
+      
+          #Getting available Snapshots for desired volumeId
+          available_snapshots = ec2_client.describe_snapshots(
+              OwnerIds=["self"],
+              Filters=[
+                  {
+                      'Name': 'volume-id',
+                      'Values': [volume_id]
+                  }
+              ]
+          )
+          snapshots =  available_snapshots['Snapshots']
+          print("Snapshots available:")
+          print(snapshots)
 
    ```
-    <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_14_Automation_with_Python_4/blob/main/Img/c4.PNG" width=800 />
+    <img src="" width=800 />
    
 5. Sort the snapshots.
     ```bash
