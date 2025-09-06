@@ -38,8 +38,8 @@ This exercise is part of Module 14: Automation with Python. Module 14 focuses on
 3. Import Schedule module
    ```bash
    import schedule
-   ``
-    <img src="" width=800 />
+   ```
+   <img src="" width=800 />
    
 4. Initialize client
    ```bash
