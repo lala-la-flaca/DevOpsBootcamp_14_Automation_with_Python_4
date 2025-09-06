@@ -92,3 +92,4 @@ This exercise is part of Module 14: Automation with Python. Module 14 focuses on
     ```
     <img src="" width=800 />       
    
+## Clelaning up Snapshots
