@@ -36,7 +36,5 @@ This exercise is part of Module 14: Automation with Python. Module 14 focuses on
    <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_14_Automation_with_Python_2/blob/main/Img/2.PNG" width=800 />
    
 
-        
-      <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_14_Automation_with_Python_3/blob/main/Img/5%20getting%20endpoint%20and%20version.png" width=800 />
       
    
